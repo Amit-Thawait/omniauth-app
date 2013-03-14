@@ -1,6 +1,8 @@
 OauthApp::Application.routes.draw do
 
   match '/auth/:provider/callback', to: 'authentications#create'
+
+  resources :authentications, :only => [:new, :index, :destroy]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
