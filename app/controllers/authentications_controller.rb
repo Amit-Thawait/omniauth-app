@@ -4,14 +4,14 @@ class AuthenticationsController < ApplicationController
   end	
 
   def index
-  	@authentication = Authentication.find_by_uid(session[:fb_uid])
+  	@authentication = Authentication.find_by_uid(session[:provider_userid])
   end	
 
   def create
-  	#render :text => request.env['omniauth.auth'].inspect
+  # render :text => "<pre>"+request.env["omniauth.auth"].to_yaml+"</pre>"   	
     @auth = request.env["omniauth.auth"]
-    session[:fb_token] = @auth["credentials"]["token"] if @auth['provider'] == 'facebook'
-    session[:fb_uid] = @auth['uid'] if @auth['provider'] == 'facebook'
+    session[:access_token] = @auth["credentials"]["token"]# if @auth['provider'] == 'facebook'
+    session[:provider_userid] = @auth['uid']# if @auth['provider'] == 'facebook'
     @authentication = Authentication.find_or_create_by_provider_and_uid(@auth['provider'], @auth['uid'])
   	if @authentication
   	  flash[:notice] = "Signed in successfully."
@@ -20,11 +20,12 @@ class AuthenticationsController < ApplicationController
   end
 
   def destroy
-  	@authentication = Authentication.find_by_uid(session[:fb_uid])
+  	@authentication = Authentication.find_by_uid(session[:provider_userid])
   	@authentication.destroy if @authentication
   	flash[:notice] = "Logged out successfully"
-    redirect_to "https://www.facebook.com/logout.php?next=#{new_authentication_url}&access_token=#{session[:fb_token]}"
-    #redirect_to "https://www.facebook.com/logout.php?access_token=#{session[:fb_token]}"
+    #redirect_to "https://www.facebook.com/logout.php?next=#{new_authentication_url}&access_token=#{session[:access_token]}"
+    redirect_to "https://www.github.com/logout?access_token=#{session[:access_token]}"
+    #redirect_to "https://www.facebook.com/logout.php?access_token=#{session[:access_token]}"
     #redirect_to new_authentication_url
   end
 
