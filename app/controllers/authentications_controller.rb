@@ -8,16 +8,21 @@ class AuthenticationsController < ApplicationController
   end	
 
   def create
-   render :text => "<pre>"+request.env["omniauth.auth"].to_yaml+"</pre>"   	
-   #  @auth = request.env["omniauth.auth"]
-   #  session[:access_token] = @auth["credentials"]["token"]# if @auth['provider'] == 'facebook'
-   #  session[:provider_userid] = @auth['uid']# if @auth['provider'] == 'facebook'
-   #  session[:provider] = @auth['provider']
-   #  @authentication = Authentication.find_or_create_by_provider_and_uid(@auth['provider'], @auth['uid'])
-  	# if @authentication
-  	#   flash[:notice] = "Signed in successfully."
-   #    redirect_to articles_path
-   #  end
+   #render :text => "<pre>"+request.env["omniauth.auth"].to_yaml+"</pre>"   	
+    @auth = request.env["omniauth.auth"]
+    logger.info "========@auth======#{@auth.to_yaml.inspect}"
+    logger.info "========extra======#{@auth['extra'].to_yaml.inspect}"
+    logger.info "========raw info======#{@auth['extra']['raw_info'].to_yaml.inspect}"
+    session[:access_token] = @auth["credentials"]["token"]# if @auth['provider'] == 'facebook'
+    provider_user_id = get_provider_user_id(@auth)
+    session[:provider_userid] = provider_user_id# if @auth['provider'] == 'facebook'
+    provider = @auth['provider']
+    session[:provider] = provider
+    @authentication = Authentication.find_or_create_by_provider_and_uid(provider, provider_user_id)
+  	if @authentication
+  	  flash[:notice] = "Signed in successfully."
+      redirect_to articles_path
+    end
   end
 
   def destroy
