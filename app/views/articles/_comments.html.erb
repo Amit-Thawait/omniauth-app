@@ -1,0 +1,6 @@
+<div id="comments">
+  <% @article.comments.order("created_at desc").each do |comment| %>
+    <%= comment.comment %>
+    <br/>
+  <% end %>
+</div>  

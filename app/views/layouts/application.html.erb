@@ -7,8 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= flash[:notice] %>
+<p id="notice"><%= notice %></p>
 <br/>
+
+<div id="user_nav" style="float:right">
+  <% if @authentication %>
+    Signed in as <%= 'aaa' %>.<br />
+    Not you? <%= link_to "Sign out", authentication_path(@authentication), :method => :delete %>
+  <% else %>
+    <%= link_to "Sign In", new_authentication_path %>
+  <% end %>
+</div>
+
 <%= yield %>
 
 </body>
