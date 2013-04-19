@@ -13,7 +13,7 @@
 <div id="user_nav" style="float:right">
   <% if @authentication %>
     Signed in as <%= session[:provider_userid] %> <br/>
-    <%= link_to "Sign out", authentication_path(@authentication), :method => :delete %>
+    <%= link_to "Sign out", authentication_path(@authentication), :method => :delete, :style=>"float:right" %>
   <% else %>
     <%= link_to "Sign In", new_authentication_path %>
   <% end %>
