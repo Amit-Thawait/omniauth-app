@@ -29,10 +29,9 @@ class AuthenticationsController < ApplicationController
   	@authentication = Authentication.find_by_uid(session[:provider_userid])
   	@authentication.destroy if @authentication
   	flash[:notice] = "Logged out successfully"
-    #redirect_to "https://www.facebook.com/logout.php?next=#{new_authentication_url}&access_token=#{session[:access_token]}"
-    redirect_to "https://www.github.com/logout?access_token=#{session[:access_token]}"
+    #redirect_to "https://www.facebook.com/logout.php?next=#{new_authentication_url}&access_token=#{session[:access_token]}"    
     #redirect_to "https://www.facebook.com/logout.php?access_token=#{session[:access_token]}"
-    #redirect_to new_authentication_url
+    redirect_to new_authentication_url
   end
 
   def facebook_logout

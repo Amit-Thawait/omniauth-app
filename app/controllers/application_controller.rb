@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   def get_provider_user_id(auth)
   	case auth['provider']
   	when 'facebook'
-  	  auth['uid']
+  	  auth['extra']['raw_info']['username']
   	when 'github'	
 	  auth['extra']['raw_info']['login']
 	end  

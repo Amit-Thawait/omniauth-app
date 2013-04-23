@@ -43,7 +43,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     @comment.article_id = params[:article_id]
     @article = @comment.article
-
+    @comment.user_id = session[:provider_userid]
+    @comment.provider = session[:provider]
+    
     respond_to do |format|
       if @comment.save
         format.html { redirect_to [@article, @comment], notice: 'Comment was successfully created.' }
