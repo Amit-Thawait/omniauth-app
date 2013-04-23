@@ -13,9 +13,9 @@ class AuthenticationsController < ApplicationController
     logger.info "========@auth======#{@auth.to_yaml.inspect}"
     logger.info "========extra======#{@auth['extra'].to_yaml.inspect}"
     logger.info "========raw info======#{@auth['extra']['raw_info'].to_yaml.inspect}"
-    session[:access_token] = @auth["credentials"]["token"]# if @auth['provider'] == 'facebook'
+    session[:access_token] = @auth["credentials"]["token"]
     provider_user_id = get_provider_user_id(@auth)
-    session[:provider_userid] = provider_user_id# if @auth['provider'] == 'facebook'
+    session[:provider_userid] = provider_user_id
     provider = @auth['provider']
     session[:provider] = provider
     @authentication = Authentication.find_or_create_by_provider_and_uid(provider, provider_user_id)
