@@ -1,18 +1,11 @@
 class AuthenticationsController < ApplicationController
 
   def new
-  end	
-
-  def index
-  	@authentication = Authentication.find_by_uid(session[:provider_userid])
-  end	
+  end
 
   def create
    #render :text => "<pre>"+request.env["omniauth.auth"].to_yaml+"</pre>"   	
     @auth = request.env["omniauth.auth"]
-    logger.info "========@auth======#{@auth.to_yaml.inspect}"
-    logger.info "========extra======#{@auth['extra'].to_yaml.inspect}"
-    logger.info "========raw info======#{@auth['extra']['raw_info'].to_yaml.inspect}"
     session[:access_token] = @auth["credentials"]["token"]
     provider_user_id = get_provider_user_id(@auth)
     session[:provider_userid] = provider_user_id
