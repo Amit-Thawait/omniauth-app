@@ -136,7 +136,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   mysql2
-  omniauth
   omniauth-facebook
   omniauth-github
   rails (= 3.2.11)

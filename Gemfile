@@ -23,7 +23,7 @@ gem 'jquery-rails'
 
 gem 'therubyracer'
 
-gem 'omniauth'
+#gem 'omniauth'
 
 gem 'omniauth-facebook'
 
