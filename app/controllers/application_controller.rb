@@ -4,12 +4,12 @@ class ApplicationController < ActionController::Base
   before_filter :logged_in_user
 
   def get_provider_user_id(auth)
-  	case auth['provider']
-  	when 'facebook'
-  	  auth['extra']['raw_info']['username']
-  	when 'github'	
-	  auth['extra']['raw_info']['login']
-	end  
+    case auth['provider']
+    when 'facebook'
+      auth['extra']['raw_info']['username']
+    when 'github'	
+      auth['extra']['raw_info']['login']
+    end  
   end
 
   private
