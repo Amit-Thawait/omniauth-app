@@ -1,3 +1,13 @@
-<div id="comments">
+<h2>Comments</h2>
+
+<% if @authentication %>
+<%= form_for([@article, @comment], :remote => true, :html => {:onsubmit => "$('#loading').show();"}) do |f|%>
+<%= f.text_area :comment, :size => "40x5"%>
+<%= f.submit %>
+<span id="loading" style="display:none"><%= image_tag('loader.gif')%></span>
+<% end %>
+<% end %>
+
+<div id="comments">	
   <%= render :partial => 'comment', :collection => @article.comments.order("created_at desc") %>
 </div>

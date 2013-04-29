@@ -6,7 +6,6 @@ OauthApp::Application.routes.draw do
 
   match '/auth/:provider/callback', to: 'authentications#create'
 
-  match '/logout', to: 'authentications#facebook_logout', as: 'logout'
   resources :authentications, :only => [:new, :destroy]
 
   root :to => 'articles#index'
